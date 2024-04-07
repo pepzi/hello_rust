@@ -22,7 +22,7 @@ concurrency:
 name: check
 jobs:
   fmt:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: stable / fmt
     steps:
       - uses: actions/checkout@v4
@@ -35,7 +35,7 @@ jobs:
       - name: cargo fmt --check
         run: cargo fmt --check
   clippy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: ${{ matrix.toolchain }} / clippy
     permissions:
       contents: read
@@ -60,7 +60,7 @@ jobs:
           reporter: 'github-pr-check'
           github_token: ${{ secrets.GITHUB_TOKEN }}
   semver:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: semver
     steps:
       - uses: actions/checkout@v4
@@ -76,7 +76,7 @@ jobs:
     # run docs generation on nightly rather than stable. This enables features like
     # https://doc.rust-lang.org/beta/unstable-book/language-features/doc-cfg.html which allows an
     # API be documented as only available in some specific platforms.
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: nightly / doc
     steps:
       - uses: actions/checkout@v4
@@ -91,7 +91,7 @@ jobs:
   hack:
     # cargo-hack checks combinations of feature flags to ensure that features are all additive
     # which is required for feature unification
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     name: ubuntu / stable / features
     steps:
       - uses: actions/checkout@v4
@@ -107,7 +107,7 @@ jobs:
         run: cargo hack --feature-powerset check
   msrv:
     # check that we can build using the minimal rust version that is specified by this crate
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     # we use a matrix here just because env can't be used in job names
     # https://docs.github.com/en/actions/learn-github-actions/contexts#context-availability
     strategy:
