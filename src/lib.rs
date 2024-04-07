@@ -5,7 +5,7 @@ struct Hello {
 impl Hello {
     fn new(&self) -> Hello {
         Self {
-            name: "World".to_string()
+            name: "World".to_string(),
         }
     }
 }
